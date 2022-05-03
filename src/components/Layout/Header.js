@@ -4,6 +4,7 @@ import Container from '@mui/material/Container';
 import AuthenticatedNavBar from './Navbars/AuthenticatedNavBar'
 import {useSelector} from 'react-redux'
 import NotAuthenticatedNavBar from './Navbars/NotAuthenticatedNavBar'
+import NavBar from "./Navbars/NavBar"
 
 
 const ResponsiveAppBar = () => {
@@ -21,20 +22,12 @@ const ResponsiveAppBar = () => {
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
-                {
-                    isAuthenticated ?
-                    <
-                    AuthenticatedNavBar
+                <NavBar
                     anchorElNav={anchorElNav}
                     handleCloseNavMenu={handleCloseNavMenu}
-                    handleOpenNavMenu={handleOpenNavMenu}
-                    /> : <NotAuthenticatedNavBar
-                            anchorElNav={anchorElNav}
-                            handleCloseNavMenu={handleCloseNavMenu}
-                            handleOpenNavMenu={handleOpenNavMenu}
-                        />
-
-                }
+                    handleOpenNavMenu={handleOpenNavMenu}>
+                    {isAuthenticated ? <AuthenticatedNavBar /> : <NotAuthenticatedNavBar />}
+                </NavBar>
             </Container>
         </AppBar>
     );

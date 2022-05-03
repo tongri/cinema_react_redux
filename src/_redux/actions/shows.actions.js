@@ -15,3 +15,17 @@ export const loadShows = () => async (dispatch, getState) => {
         // a?
     }
 }
+
+
+export const createShow = (data) => async (dispatch, getState) => {
+    try {
+        const result = await axios.post(
+            'api/shows/',
+            data,
+            getConfig(getState)
+        )
+        dispatch(loadShows())
+    } catch (err){
+        console.log(err)
+    }
+}

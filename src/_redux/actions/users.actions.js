@@ -38,7 +38,7 @@ export const signUpUser = (data) => async(dispatch, getState) => {
 }
 
 export const verifyToken = () => async (dispatch, getState) => {
-    try{
+    try {
         console.log(`the config state ${getConfig(getState)}`)
         const result = await axios.get(
             'api/verify_token/',
@@ -49,7 +49,7 @@ export const verifyToken = () => async (dispatch, getState) => {
             payload: result.data
         })
     } catch (err) {
-        dispatch({ type: USER_FAILED })
+        dispatch({type: USER_FAILED})
     }
 }
 

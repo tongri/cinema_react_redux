@@ -1,11 +1,10 @@
 import AuthContainer from '../components/forms/AuthContainer'
-import ResponsiveAppBar from '../components/Layout/Header'
 
 
 const Authentication = () => {
+    console.log("in auth")
     return (
         <>
-            <ResponsiveAppBar />
             <div className="container-fluid">
                 <AuthContainer />
             </div>

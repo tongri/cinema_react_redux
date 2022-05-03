@@ -1,14 +1,17 @@
 import React from 'react'
 import {Provider} from 'react-redux'
 import {App} from './components/App'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import store from './_redux/store'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {Router} from 'react-router-dom'
 
 const RootRender = () => {
     return (
         <Provider store={store}>
-            <App />
+            <Router>
+                <App />
+            </Router>
         </Provider>
     )
 }
