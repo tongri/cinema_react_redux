@@ -1,12 +1,15 @@
 import axios from '../../_axios'
+import {config} from '../../utils/config'
 
-export const createOrder = async (data, token) => {
+export const createOrder = (data, token) => {
     try {
-        const result = await axios.post(
+        console.log('res ')
+        config.headers['Authorization'] = `Token ${token}`
+        const result = axios.post(
             'api/create_order/',
-            data, token
-        )
-        return result
+            data,
+            config
+        ).then(res => res)
     } catch (err){
         return err
     }

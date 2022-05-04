@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {useEffect, useState} from 'react'
 import {loadShows} from '../_redux/actions/shows.actions'
 import ShowList from '../components/Shows/ShowList'
-import {SpeedDial, SpeedDialIcon} from '@mui/material'
+import {Box, SpeedDial, SpeedDialIcon} from '@mui/material'
 import {CustomDialog} from '../components/Layout/CustomDialog'
 import {ShowForm} from '../components/forms/ShowForm'
 
@@ -34,7 +34,7 @@ const Main = () => {
                 >hi</SpeedDial>
             : null}
             <CustomDialog isDialogOpen={isDialogOpen} setDialog={handleDialog}  title={"Create Show"}>
-                <ShowForm />
+                <ShowForm title="create show"/>
             </CustomDialog>
         </>
     )

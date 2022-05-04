@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux'
 import {signUpUser} from '../../_redux/actions/users.actions'
-import {Box, Button, CircularProgress, Container, CssBaseline, TextField, Typography} from '@mui/material'
+import {Box, Button, CircularProgress, CssBaseline, TextField} from '@mui/material'
 
 
 export const SignUpForm = () => {

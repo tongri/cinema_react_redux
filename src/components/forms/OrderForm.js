@@ -2,23 +2,25 @@ import {Box, Button, TextField} from '@mui/material'
 import {createOrder} from '../../api/orders'
 import {useSelector} from 'react-redux'
 
-const OrderForm = () => {
+const OrderForm = ({ showId }) => {
     const token = useSelector(st => st.users.token)
 
-    const submitHandler = async (e) => {
+    const submitHandler = (e) =>  {
         e.preventDefault()
         const data = new FormData(e.currentTarget);
-        data["token"] = token
-        const result = await createOrder(data)
+        const result = createOrder({show_id: showId, amount: data.get('amount')}, token)
     }
     return (
         <>
             <Box component="form" onSubmit={submitHandler} noValidate>
-                <TextField variant="filled"
-                           placeholder="Enter ticket amount"
-                           type="number"
-                           min={1}
-                           fullWidth
+                <TextField
+                    variant="filled"
+                    placeholder="Enter ticket amount"
+                    id="amount"
+                    name="amount"
+                    type="number"
+                    min={1}
+                   fullWidth
                 />
                 <Button
                     type="submit"

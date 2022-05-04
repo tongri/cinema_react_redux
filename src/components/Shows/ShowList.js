@@ -9,11 +9,11 @@ const ShowList = ({list}) => {
 
     return list.length ? (
         <>
-            <Container maxWidth="xl">
+            <Container maxWidth="xl" sx={{ mt: 5}} >
                 <Grid container spacing={2}>
                 {list.map(show => (
-                    <Grid item xs={4}>
-                        <Show key={show.id} {...show} isStaff={isStaff} isAuthenticated={isAuthenticated}/>
+                    <Grid item xs={4} key={show.id}>
+                        <Show {...show} isStaff={isStaff} isAuthenticated={isAuthenticated}/>
                     </Grid>
                 ))}
                 </Grid>

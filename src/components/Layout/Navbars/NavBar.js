@@ -5,14 +5,9 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
-import Tooltip from '@mui/material/Tooltip'
-import Avatar from '@mui/material/Avatar'
 import Toolbar from '@mui/material/Toolbar'
-import React, {useState} from 'react'
-import {useDispatch} from 'react-redux'
-import {logoutUser} from '../../../_redux/actions/users.actions'
 import {PAGE_MAIN} from '../../../consts/routes'
-import {Link} from '@mui/material'
+import {useNavigate} from 'react-router-dom'
 
 
 
@@ -20,17 +15,7 @@ const pages = [{name: "Shows", path: PAGE_MAIN}, {name: "Pricing", path: PAGE_MA
 
 
 const NavBar = ({ anchorElNav, handleCloseNavMenu, handleOpenNavMenu, children }) => {
-    const dsp = useDispatch()
-    const [anchorElUser, setAnchorElUser] = useState(null);
-    const logoutHandler = () => dsp(logoutUser())
-
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
-
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
+    const navigate = useNavigate()
 
     return (
         <>
@@ -74,11 +59,9 @@ const NavBar = ({ anchorElNav, handleCloseNavMenu, handleOpenNavMenu, children }
                     >
                         {
                             pages.map(({name, path}) => (
-                                <MenuItem key={name} onClick={handleCloseNavMenu}>
+                                <MenuItem key={name} onClick={() => navigate(path)}>
                                     <Typography textAlign="center">
-                                        <Link href={path} underline="none">
-                                            {name}
-                                        </Link>
+                                        {name}
                                     </Typography>
                                 </MenuItem>
                             ))
@@ -97,7 +80,7 @@ const NavBar = ({ anchorElNav, handleCloseNavMenu, handleOpenNavMenu, children }
                     {pages.map(({name, path}) => (
                         <Button
                             key={name}
-                            onClick={handleCloseNavMenu}
+                            onClick={() => navigate(path)}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             {name}

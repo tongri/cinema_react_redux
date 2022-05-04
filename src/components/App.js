@@ -7,6 +7,7 @@ import 'mdbreact/dist/css/mdb.css'
 import Main from '../pages/Main'
 import ResponsiveAppBar from './Layout/Header'
 import {PAGE_LOGIN, PAGE_MAIN} from '../consts/routes'
+import PublicRoute from '../routes/PublicRoute'
 
 
 export const App = () => {
@@ -21,7 +22,8 @@ export const App = () => {
             <ResponsiveAppBar />
             <Routes>
                 <Route path={PAGE_MAIN} element={<Main />} />
-                <Route path={PAGE_LOGIN} element={<Authentication />} />
+
+                <Route path={PAGE_LOGIN} element={<PublicRoute><Authentication /></PublicRoute>} />
             </Routes>
         </BrowserRouter>
         </>

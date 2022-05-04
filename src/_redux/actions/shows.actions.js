@@ -29,3 +29,17 @@ export const createShow = (data) => async (dispatch, getState) => {
         console.log(err)
     }
 }
+
+
+export const updateShow = (show_id, data) => async (dispatch, getState) => {
+    try {
+        const result = await axios.patch(
+            `api/shows/${show_id}/`,
+            data,
+            getConfig(getState)
+        )
+        dispatch(loadShows())
+    } catch (err){
+        console.log(err)
+    }
+}

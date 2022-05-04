@@ -1,20 +1,23 @@
 import {Box, Button, TextField} from '@mui/material'
 import {useDispatch} from 'react-redux'
-import {createShow} from '../../_redux/actions/shows.actions'
+import {createShow, updateShow} from '../../_redux/actions/shows.actions'
 import {useState} from 'react'
 
 
-export const ShowForm = () => {
+export const ShowForm = ({ showId, film_id, place_id,
+                             show_time_start=new Date().toJSON().slice(0, -8), price, title }) => {
     const dsp = useDispatch()
-    const [showTimeValue, setShowTimeValue] = useState("2018-06-12T19:30")
+    const [formValues, setFormValues] = useState({film_id, place_id, show_time_start, price})
 
     const submitHandler = (e) => {
         e.preventDefault()
         const data = new FormData(e.currentTarget);
+        if (showId) return dsp(updateShow(showId, data))
         dsp(createShow(data))
     }
-    const handleTimeInput = (e) => {
-        setShowTimeValue(e.target.value)
+    const handleInput = (e) => {
+        e.preventDefault()
+        setFormValues({...formValues, [e.target.name]: e.target.value})
     }
     return (
         <>
@@ -28,7 +31,9 @@ export const ShowForm = () => {
                 name="place_id"
                 type="number"
                 variant="standard"
+                value={formValues.place_id}
                 autoFocus
+                onChange={e => handleInput(e)}
             />
             <TextField
                 margin="normal"
@@ -36,9 +41,11 @@ export const ShowForm = () => {
                 fullWidth
                 name="film_id"
                 label="Film Id"
+                value={formValues.film_id}
                 type="number"
-                id="password"
+                id="film_id"
                 variant="standard"
+                onChange={e => handleInput(e)}
             />
             <TextField
                 margin="normal"
@@ -49,8 +56,8 @@ export const ShowForm = () => {
                 variant="standard"
                 id="confirm_password"
                 type="datetime-local"
-                value={showTimeValue}
-                onChange={handleTimeInput}
+                value={formValues.show_time_start}
+                onChange={e => handleInput(e)}
             />
             <TextField
                 margin="normal"
@@ -61,7 +68,9 @@ export const ShowForm = () => {
                 name="price"
                 type="number"
                 variant="standard"
+                value={formValues.price}
                 autoFocus
+                onChange={e => handleInput(e)}
             />
             <Button
                 type="submit"
@@ -69,7 +78,7 @@ export const ShowForm = () => {
                 sx={{ mt: 3, mb: 2, p: 1}}
                 fontSize={30}
             >
-                Create Show
+                { title }
             </Button>
         </Box>
         </>
