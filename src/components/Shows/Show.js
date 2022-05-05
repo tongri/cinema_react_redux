@@ -57,7 +57,7 @@ const Show = (
                                 <Button size="small" onClick={() => setShowDialog(true)}>
                                     Edit
                                 </Button>
-                                <Button size="small" onClick={() => deleteShow(id)}>
+                                <Button size="small" onClick={() => handleDelete(id)}>
                                     { isDeleteLoading ?
                                         <CircularProgress color="inherit" size={15}/> :
                                     "Delete"}
