@@ -40,6 +40,20 @@ export const updateShow = (show_id, data) => async (dispatch, getState) => {
         )
         dispatch(loadShows())
     } catch (err){
-        console.log(err)
+        // a?
+    }
+}
+
+
+export const deleteShow = (show_id) => async (dispatch, getState) => {
+    console.log(`in dsp`)
+    try {
+        const result = await axios.delete(
+            `api/shows/${show_id}/`,
+            getConfig(getState)
+        )
+        dispatch(loadShows())
+    } catch (err){
+        // a?
     }
 }

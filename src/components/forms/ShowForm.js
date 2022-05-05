@@ -1,5 +1,5 @@
-import {Box, Button, TextField} from '@mui/material'
-import {useDispatch} from 'react-redux'
+import {Box, Button, CircularProgress, TextField} from '@mui/material'
+import {useDispatch, useSelector} from 'react-redux'
 import {createShow, updateShow} from '../../_redux/actions/shows.actions'
 import {useState} from 'react'
 
@@ -7,11 +7,13 @@ import {useState} from 'react'
 export const ShowForm = ({ showId, film_id, place_id,
                              show_time_start=new Date().toJSON().slice(0, -8), price, title }) => {
     const dsp = useDispatch()
+    const [isLoading, setIsLoading] = useState(false)
     const [formValues, setFormValues] = useState({film_id, place_id, show_time_start, price})
 
     const submitHandler = (e) => {
         e.preventDefault()
         const data = new FormData(e.currentTarget);
+        setIsLoading(true)
         if (showId) return dsp(updateShow(showId, data))
         dsp(createShow(data))
     }
@@ -78,7 +80,7 @@ export const ShowForm = ({ showId, film_id, place_id,
                 sx={{ mt: 3, mb: 2, p: 1}}
                 fontSize={30}
             >
-                { title }
+                { isLoading ? <CircularProgress color="inherit" size={30} /> : title }
             </Button>
         </Box>
         </>

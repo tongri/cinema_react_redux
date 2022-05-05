@@ -1,14 +1,15 @@
-import {Box, Button, TextField} from '@mui/material'
-import {createOrder} from '../../api/orders'
-import {useSelector} from 'react-redux'
+import {Box, Button, CircularProgress, TextField} from '@mui/material'
+import {useDispatch, useSelector} from 'react-redux'
+import {createOrder} from '../../_redux/actions/order.actions'
 
 const OrderForm = ({ showId }) => {
-    const token = useSelector(st => st.users.token)
+    const dsp = useDispatch()
+    const isLoading = useSelector(state => state.orders.isLoading)
 
     const submitHandler = (e) =>  {
         e.preventDefault()
         const data = new FormData(e.currentTarget);
-        const result = createOrder({show_id: showId, amount: data.get('amount')}, token)
+        dsp(createOrder({show_id: showId, amount: data.get('amount')}))
     }
     return (
         <>
@@ -29,7 +30,7 @@ const OrderForm = ({ showId }) => {
                     sx={{ mt: 3, mb: 2, p: 1 }}
                     fontSize={30}
                 >
-                    buy tickets
+                    { isLoading ? <CircularProgress color="inherit" size={30} /> : "buy tickets" }
                 </Button>
             </Box>
         </>

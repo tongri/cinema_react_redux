@@ -1,5 +1,4 @@
 import {SHOWS_LOADING, SHOWS_SUCCESS} from '../types'
-import axios from '../../_axios'
 
 
 const initialState = {

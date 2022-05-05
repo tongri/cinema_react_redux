@@ -39,7 +39,6 @@ export const signUpUser = (data) => async(dispatch, getState) => {
 
 export const verifyToken = () => async (dispatch, getState) => {
     try {
-        console.log(`the config state ${getConfig(getState)}`)
         const result = await axios.get(
             'api/verify_token/',
             getConfig(getState)

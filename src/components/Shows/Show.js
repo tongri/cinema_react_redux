@@ -1,19 +1,29 @@
-import {Button, CardActions, CardContent, Typography} from '@mui/material'
+import {Button, CardActions, CardContent, CircularProgress, Typography} from '@mui/material'
 import {useState} from 'react'
 import OrderForm from '../forms/OrderForm'
 import {PAGE_LOGIN} from '../../consts/routes'
 import {CustomDialog} from '../Layout/CustomDialog'
 import {useNavigate} from 'react-router-dom'
 import {ShowForm} from '../forms/ShowForm'
+import {useDispatch} from 'react-redux'
+import {deleteShow} from '../../_redux/actions/shows.actions'
 
 
 const Show = (
     {id, place_name, place_id, film_name, film_id, show_time_start,
         price, isStaff=false, isAuthenticated = false,...tags}
 ) => {
+    const dsp = useDispatch()
     const navigate = useNavigate()
     const [isOrderDialogOpen, setOrderDialog] = useState(false)
     const [isShowDialogOpen, setShowDialog] = useState(false)
+    const [isDeleteLoading, setDeleteLoading] = useState(false)
+
+    const handleDelete = () => {
+        setDeleteLoading(true)
+        dsp(deleteShow(id))
+        setDeleteLoading(false)
+    }
 
     const handleOrderDialog = () => {
         setOrderDialog(false)
@@ -24,7 +34,6 @@ const Show = (
     }
 
 
-    // let toLocal = new Date(show_time_start).toLocaleString()
     return (
         <>
             <CardContent sx={{ boxShadow: 10, borderRadius: '13px', backgroundColor: '#bbdefb' }}>
@@ -32,10 +41,10 @@ const Show = (
                     {film_name}
                 </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    on {show_time_start}
+                    costs ${price}
                 </Typography>
                 <Typography variant="body2">
-                    starts at {new Date(show_time_start).toString()}
+                    starts at {show_time_start}
                 </Typography>
             </CardContent>
             {
@@ -44,7 +53,16 @@ const Show = (
                         <Button size="small" onClick={() => setOrderDialog(true)}>Buy Tickets</Button>
                         {
                             isStaff === true &&
-                            <Button size="small" onClick={() => setShowDialog(true)}>Edit</Button>
+                            <>
+                                <Button size="small" onClick={() => setShowDialog(true)}>
+                                    Edit
+                                </Button>
+                                <Button size="small" onClick={() => deleteShow(id)}>
+                                    { isDeleteLoading ?
+                                        <CircularProgress color="inherit" size={15}/> :
+                                    "Delete"}
+                                </Button>
+                            </>
                         }
                     </CardActions>
                     :

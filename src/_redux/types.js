@@ -14,5 +14,5 @@ export const SHOWS_FAILED = 'SHOWS_FAILED'
 
 // Orders
 export const ORDER_SUCCESS = 'ORDER_SUCCESS'
-export const ORDER_LOADING = 'ORDER_LOADING'
+export const ORDER_LOADING = 'ORDERS_LOADING'
 export const ORDER_FAILED = 'ORDER_FAILED'

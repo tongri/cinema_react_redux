@@ -13,7 +13,6 @@ const initialState = {
 const Reducer = (state = initialState, action) => {
     switch (action.type) {
         case USER_SUCCESS:
-            console.log('the payload ', action.payload)
             localStorage.setItem('token', action.payload.token)
             localStorage.setItem('isStaff', action.payload.isStaff)
             return {
