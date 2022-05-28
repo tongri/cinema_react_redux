@@ -1,13 +1,13 @@
 import {useDispatch, useSelector} from 'react-redux'
 import {useEffect, useState} from 'react'
-import {loadShows} from '../_redux/actions/shows.actions'
-import ShowList from '../components/Shows/ShowList'
 import {Box, CircularProgress, SpeedDial, SpeedDialIcon} from '@mui/material'
 import {CustomDialog} from '../components/Layout/CustomDialog'
-import {ShowForm} from '../components/forms/ShowForm'
+import {FilmForm} from '../components/forms/FilmForm'
+import FilmList from '../components/Films/FilmList'
+import {loadFilms} from '../_redux/actions/films.actions'
 
-const Main = () => {
-    const { list, isLoading } = useSelector((state) => state.shows)
+const FilmPage = () => {
+    const { list, isLoading } = useSelector((state) => state.films)
     const token = useSelector(state => state.users.token)
     const is_staff = useSelector(state => state.users.is_staff)
     const [isDialogOpen, setDialog] = useState(false)
@@ -18,17 +18,17 @@ const Main = () => {
 
     const dsp = useDispatch()
     useEffect(() => {
-        dsp(loadShows())
+        dsp(loadFilms())
     }, [token, dsp])
     return (
         <>
             { isLoading ? <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                minHeight="90vh"
-            ><CircularProgress color="inherit" size={100}/></Box> :
-                <ShowList list={list}/>
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    minHeight="90vh"
+                ><CircularProgress color="inherit" size={100}/></Box> :
+                <FilmList list={list}/>
             }
             { is_staff ?
                 <SpeedDial
@@ -37,12 +37,12 @@ const Main = () => {
                     icon={<SpeedDialIcon />}
                     onClick={handleDialog}
                 >hi</SpeedDial>
-            : null}
-            <CustomDialog isDialogOpen={isDialogOpen} setDialog={handleDialog}  title={"Create Show"}>
-                <ShowForm title="create show"/>
+                : null}
+            <CustomDialog isDialogOpen={isDialogOpen} setDialog={handleDialog}  title={"Create Film"}>
+                <FilmForm title="create show"/>
             </CustomDialog>
         </>
     )
 }
 
-export default Main
+export default FilmPage

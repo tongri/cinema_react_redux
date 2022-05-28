@@ -6,16 +6,28 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
 import Toolbar from '@mui/material/Toolbar'
-import {PAGE_MAIN} from '../../../consts/routes'
+import {PAGE_FILMS, PAGE_MAIN, PAGE_PLACES} from '../../../consts/routes'
 import {useNavigate} from 'react-router-dom'
+import {useSelector} from 'react-redux'
+import {useEffect, useState} from 'react'
 
 
 
-const pages = [{name: "Shows", path: PAGE_MAIN}, {name: "Pricing", path: PAGE_MAIN}];
+const initialPages = [{name: "Shows", path: PAGE_MAIN}, {name: "Films", path: PAGE_FILMS}];
 
 
 const NavBar = ({ anchorElNav, handleCloseNavMenu, handleOpenNavMenu, children }) => {
     const navigate = useNavigate()
+
+    const [pages, setPages] = useState(initialPages)
+
+    const is_staff = useSelector(state => state.users.is_staff)
+    const token = useSelector(state => state.users.token)
+
+    useEffect(() => {
+        if (is_staff) return setPages(prev => [...prev, {name: "Places", path: PAGE_PLACES}])
+        setPages(initialPages)
+    }, [token])
 
     return (
         <>

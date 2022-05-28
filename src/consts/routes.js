@@ -1,2 +1,5 @@
 export const PAGE_LOGIN = "/login"
 export const PAGE_MAIN = "/main"
+export const PAGE_ORDERS = "/orders"
+export const PAGE_FILMS = "/films"
+export const PAGE_PLACES = "/places"

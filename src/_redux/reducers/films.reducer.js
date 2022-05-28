@@ -1,26 +1,24 @@
-import {ORDER_LOADING, ORDER_SUCCESS} from '../types'
+import {FILMS_LOADING, FILMS_SUCCESS} from '../types'
+
 
 const initialState = {
     isLoading: false,
-    total: 0,
     list: []
 }
 
 
 const Reducer = (state = initialState, action) => {
     switch (action.type){
-        case ORDER_SUCCESS:
+        case FILMS_SUCCESS:
             return {
                 ...state,
                 list: action.payload.items,
-                isLoading: false,
-                total: action.payload.results.total
+                isLoading: false
             }
-        case ORDER_LOADING:
+        case FILMS_LOADING:
             return {
                 ...state,
-                isLoading: true,
-                total: 0,
+                isLoading: true
             }
         default:
             return state

@@ -12,7 +12,7 @@ const Reducer = (state = initialState, action) => {
         case SHOWS_SUCCESS:
             return {
                 ...state,
-                list: action.payload.results,
+                list: action.payload.items,
                 isLoading: false
             }
         case SHOWS_LOADING:

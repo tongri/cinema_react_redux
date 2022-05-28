@@ -7,7 +7,7 @@ export const config = {
 
 const getConfig = (getState) => {
     const token = getState().users.token
-    if (token) config.headers['Authorization'] = `Token ${token}`
+    if (token) config.headers['Authorization'] = `Bearer ${token}`
     return config
 }
 

@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux'
 const ShowList = ({list}) => {
 
     const isAuthenticated = useSelector(state => state.users.isAuthenticated)
-    const isStaff = useSelector(state => state.users.isStaff)
+    const is_staff = useSelector(state => state.users.is_staff)
 
     return list.length ? (
         <>
@@ -13,7 +13,7 @@ const ShowList = ({list}) => {
                 <Grid container spacing={2}>
                 {list.map(show => (
                     <Grid item xs={4} key={show.id}>
-                        <Show {...show} isStaff={isStaff} isAuthenticated={isAuthenticated}/>
+                        <Show {...show} is_staff={is_staff} isAuthenticated={isAuthenticated}/>
                     </Grid>
                 ))}
                 </Grid>

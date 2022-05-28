@@ -1,6 +1,6 @@
 import getConfig from '../../utils/config'
 import axios from '../../_axios'
-import {USER_FAILED, USER_LOADING, USER_LOGOUT, USER_SUCCESS} from '../types'
+import {USER_FAILED, USER_LOADING, USER_LOGOUT, USER_SUCCESS, USER_VERIFIED} from '../types'
 
 
 export const loginUser = (data) => async (dispatch, getState) => {
@@ -40,11 +40,11 @@ export const signUpUser = (data) => async(dispatch, getState) => {
 export const verifyToken = () => async (dispatch, getState) => {
     try {
         const result = await axios.get(
-            'api/verify_token/',
+            'api/me/',
             getConfig(getState)
         )
         dispatch({
-            type: USER_SUCCESS,
+            type: USER_VERIFIED,
             payload: result.data
         })
     } catch (err) {

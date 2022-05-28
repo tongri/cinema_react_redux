@@ -8,9 +8,12 @@ import Avatar from '@mui/material/Avatar'
 import React, {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import {logoutUser} from '../../../_redux/actions/users.actions'
+import {useNavigate} from 'react-router-dom'
+import {PAGE_ORDERS} from '../../../consts/routes'
 
 
 const AuthenticatedNavBar = () => {
+    const navigate = useNavigate()
     const dsp = useDispatch()
     const [anchorElUser, setAnchorElUser] = useState(null);
     const logoutHandler = () => dsp(logoutUser())
@@ -47,7 +50,7 @@ const AuthenticatedNavBar = () => {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                 >
-                    <MenuItem onClick={handleCloseUserMenu}>
+                    <MenuItem onClick={() => navigate(PAGE_ORDERS)}>
                         <Typography textAlign="center">Orders</Typography>
                     </MenuItem>
                     <MenuItem onClick={logoutHandler}>

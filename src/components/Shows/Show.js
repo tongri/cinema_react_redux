@@ -10,8 +10,8 @@ import {deleteShow} from '../../_redux/actions/shows.actions'
 
 
 const Show = (
-    {id, place_name, place_id, film_name, film_id, show_time_start,
-        price, isStaff=false, isAuthenticated = false,...tags}
+    {id, place, film, show_time_start,
+        price, is_staff=false, isAuthenticated = false,...tags}
 ) => {
     const dsp = useDispatch()
     const navigate = useNavigate()
@@ -19,10 +19,9 @@ const Show = (
     const [isShowDialogOpen, setShowDialog] = useState(false)
     const [isDeleteLoading, setDeleteLoading] = useState(false)
 
-    const handleDelete = () => {
+    const handleDelete = () => () => {
         setDeleteLoading(true)
-        dsp(deleteShow(id))
-        setDeleteLoading(false)
+        dsp(deleteShow(id)).finally(() => setDeleteLoading(false))
     }
 
     const handleOrderDialog = () => {
@@ -38,7 +37,7 @@ const Show = (
         <>
             <CardContent sx={{ boxShadow: 10, borderRadius: '13px', backgroundColor: '#bbdefb' }}>
                 <Typography variant="h5" component="div">
-                    {film_name}
+                    {film.name}
                 </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
                     costs ${price}
@@ -52,12 +51,12 @@ const Show = (
                     <CardActions>
                         <Button size="small" onClick={() => setOrderDialog(true)}>Buy Tickets</Button>
                         {
-                            isStaff === true &&
+                            is_staff === true &&
                             <>
                                 <Button size="small" onClick={() => setShowDialog(true)}>
                                     Edit
                                 </Button>
-                                <Button size="small" onClick={() => handleDelete(id)}>
+                                <Button size="small" onClick={handleDelete(id)}>
                                     { isDeleteLoading ?
                                         <CircularProgress color="inherit" size={15}/> :
                                     "Delete"}
@@ -74,8 +73,10 @@ const Show = (
                 <OrderForm showId={id}/>
             </CustomDialog>
             <CustomDialog isDialogOpen={isShowDialogOpen} setDialog={handleShowDialog}  title={"Edit Show"}>
-                <ShowForm showId={id} place_id={place_id} show_time_start={show_time_start.slice(0, -4)} price={price}
-                    film_id={film_id} title="edit show"/>
+                <ShowForm showId={id} place_id={place.id} show_time_start={show_time_start.slice(0, -4)} price={price}
+                    film_id={film.id} title="edit show"/>
+                <ShowForm showId={id} place_id={place.id} show_time_start={show_time_start.slice(0, -4)} price={price}
+                    film_id={film.id} title="edit show"/>
             </CustomDialog>
         </>
     )

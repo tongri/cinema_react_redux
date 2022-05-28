@@ -7,6 +7,7 @@ export const loadShows = () => async (dispatch, getState) => {
 
     try {
         const result = await axios.get('api/shows/', getConfig(getState))
+        console.log({shows: result.data})
         dispatch({
             type: SHOWS_SUCCESS,
             payload: result.data,
@@ -46,7 +47,6 @@ export const updateShow = (show_id, data) => async (dispatch, getState) => {
 
 
 export const deleteShow = (show_id) => async (dispatch, getState) => {
-    console.log(`in dsp`)
     try {
         const result = await axios.delete(
             `api/shows/${show_id}/`,

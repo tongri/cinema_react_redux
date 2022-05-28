@@ -1,11 +1,12 @@
-import {USER_LOADING, USER_SUCCESS, USER_FAILED, USER_LOGOUT} from '../types'
+import {USER_LOADING, USER_SUCCESS, USER_FAILED, USER_LOGOUT, USER_VERIFIED} from '../types'
+import jwtDecode from 'jwt-decode'
 
 const initialState = {
     id: null,
     token: localStorage.getItem('token') || null,
     isAuthenticated: null,
     isLoading: false,
-    isStaff: localStorage.getItem('isStaff') || null,
+    is_staff: localStorage.getItem('is_staff') || null,
     username: null
 }
 
@@ -13,8 +14,19 @@ const initialState = {
 const Reducer = (state = initialState, action) => {
     switch (action.type) {
         case USER_SUCCESS:
-            localStorage.setItem('token', action.payload.token)
-            localStorage.setItem('isStaff', action.payload.isStaff)
+            const {is_staff, ...rest} = jwtDecode(action.payload.access_token)
+            localStorage.setItem('token', action.payload.access_token)
+            if (is_staff) localStorage.setItem('is_staff', is_staff)
+            return {
+                ...state,
+                is_staff,
+                ...rest,
+                token: action.payload.access_token,
+                isAuthenticated: true,
+                isLoading: false,
+            }
+        case USER_VERIFIED:
+            console.log(action.payload)
             return {
                 ...state,
                 ...action.payload,
@@ -23,14 +35,13 @@ const Reducer = (state = initialState, action) => {
             }
         case USER_FAILED:
             localStorage.removeItem('token')
-            localStorage.removeItem('isStaff')
             return {
                 ...state,
                 token: null,
                 username: null,
                 isAuthenticated: false,
                 isLoading: false,
-                isStaff: false,
+                is_staff: false,
             }
         case USER_LOADING:
             return {
@@ -38,14 +49,13 @@ const Reducer = (state = initialState, action) => {
                 isLoading: true,
             }
         case USER_LOGOUT:
-            localStorage.removeItem('isStaff')
             localStorage.removeItem('token')
             return {
                 ...state,
                 username: null,
                 token: null,
                 isAuthenticated: false,
-                isStaff: false,
+                is_staff: false,
             }
         default:
             return state

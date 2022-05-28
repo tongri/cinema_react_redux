@@ -23,7 +23,7 @@ export const ShowForm = ({ showId, film_id, place_id,
     }
     return (
         <>
-        <Box component="form" onSubmit={submitHandler} noValidate>
+        <Box component="form" onSubmit={submitHandler} noValidate sx={{justifyContent: "center"}}>
             <TextField
                 margin="normal"
                 required
@@ -56,7 +56,7 @@ export const ShowForm = ({ showId, film_id, place_id,
                 name="show_time_start"
                 label="Show Time Start"
                 variant="standard"
-                id="confirm_password"
+                id="show_time_start"
                 type="datetime-local"
                 value={formValues.show_time_start}
                 onChange={e => handleInput(e)}
@@ -74,14 +74,16 @@ export const ShowForm = ({ showId, film_id, place_id,
                 autoFocus
                 onChange={e => handleInput(e)}
             />
-            <Button
-                type="submit"
-                variant="contained"
-                sx={{ mt: 3, mb: 2, p: 1}}
-                fontSize={30}
-            >
-                { isLoading ? <CircularProgress color="inherit" size={30} /> : title }
-            </Button>
+            <Box sx={{ justifyContent: 'flex-end' }}>
+                <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2, p: 1, width: "15rem"}}
+                    fontSize={30}
+                >
+                    { isLoading ? <CircularProgress color="inherit" size={30} /> : title }
+                </Button>
+            </Box>
         </Box>
         </>
     )
